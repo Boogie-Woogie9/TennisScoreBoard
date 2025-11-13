@@ -1,5 +1,6 @@
 package model;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class MatchScore {
@@ -16,7 +17,11 @@ public class MatchScore {
 
     public MatchScore(String player1Name, String player2Name){
         this.currentMatch = new Match(player1Name, player2Name);
-        this.scoresView = Map.of(0,"00", 1,"15", 2,"30", 3,"40");
+        this.scoresView = new HashMap<>();
+        this.scoresView.put(0,"00");
+        this.scoresView.put(1,"15");
+        this.scoresView.put(2,"30");
+        this.scoresView.put(3,"40");
     }
     public void setScore(int player){
         if (player == 1) score1++; else score2++;
