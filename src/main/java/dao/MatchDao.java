@@ -43,4 +43,36 @@ public class MatchDao implements GenericDao<Match> {
                 .openSession()
                 .merge(entity);
     }
+
+    public List<Match> findPage(int limit, int offset, String filter) {
+        String baseQuery = """
+                SELECT m FROM Match m
+                WHERE (:filter IS NULL\s
+                       OR m.player1.name LIKE :pattern\s
+                       OR m.player2.name LIKE :pattern)
+                ORDER BY m.id DESC
+                """;
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession()
+                .createQuery(baseQuery, Match.class)
+                .setParameter("filter", filter)
+                .setParameter("pattern", filter == null ? null : "%" + filter + "%")
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public int countAll(String filter) {
+        String countQuery = """
+                SELECT COUNT(m.id) FROM Match m
+                WHERE (:filter IS NULL
+                       OR m.player1.name LIKE :pattern
+                       OR m.player2.name LIKE :pattern)
+                """;
+        Long count = HibernateSessionFactoryUtil.getSessionFactory().openSession()
+                .createQuery(countQuery, Long.class)
+                .setParameter("filter", filter)
+                .setParameter("pattern", filter == null ? null : "%" + filter + "%")
+                .getSingleResult();
+        return count.intValue();
+    }
 }

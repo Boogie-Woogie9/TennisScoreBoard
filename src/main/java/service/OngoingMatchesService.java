@@ -1,22 +1,23 @@
 package service;
 
-import model.Match;
+import model.MatchScore;
 
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class OngoingMatchesService {
-    private final Map<Long, Match> ongoingMatches = new ConcurrentHashMap<>();
+    private final Map<UUID, MatchScore> ongoingMatches = new ConcurrentHashMap<>();
 
-    public void addMatch(Match match){
-        ongoingMatches.put(match.getId(), match);
+    public void addMatchScore(UUID uuid, MatchScore matchScore){
+        ongoingMatches.put(uuid, matchScore);
     }
 
-    public Match getMatch(Long id){
-        return ongoingMatches.get(id);
+    public MatchScore getMatchScore(UUID uuid){
+        return ongoingMatches.get(uuid);
     }
 
-    public void removeMatch(Long id){
-        ongoingMatches.remove(id);
+    public void removeMatchScore(UUID uuid){
+        ongoingMatches.remove(uuid);
     }
 }

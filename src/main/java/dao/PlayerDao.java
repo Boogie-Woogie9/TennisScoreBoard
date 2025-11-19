@@ -1,10 +1,7 @@
 package dao;
 
-import jakarta.transaction.Transaction;
 import model.Player;
-import org.hibernate.Session;
 import util.HibernateSessionFactoryUtil;
-
 import java.util.List;
 
 public class PlayerDao implements GenericDao<Player> {

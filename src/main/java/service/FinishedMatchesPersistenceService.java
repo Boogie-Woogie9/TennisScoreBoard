@@ -5,10 +5,10 @@ import model.Match;
 import java.util.List;
 
 public class FinishedMatchesPersistenceService {
-    private final MatchDao matchDao;
+    private MatchDao matchDao;
 
-    public FinishedMatchesPersistenceService() {
-        matchDao = new MatchDao();
+    public FinishedMatchesPersistenceService(MatchDao matchDao) {
+        this.matchDao = matchDao;
     }
 
     public void saveFinishedMatch(Match match){
@@ -25,6 +25,14 @@ public class FinishedMatchesPersistenceService {
 
     public List<Match> getAllMatches(){
         return matchDao.findAll();
+    }
+
+    public List<Match> getMatchesPage(int limit, int offset, String filter){
+        return matchDao.findPage(limit, offset, filter);
+    }
+
+    public int countMatches(String filter){
+        return matchDao.countAll(filter);
     }
 
     public void deleteMatch(Match match){
