@@ -1,10 +1,15 @@
 package model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
+@Setter
 public class MatchScore {
-    private final Match currentMatch;
+    public final Match currentMatch;
     private final Map<Integer, String> scoresView;
     boolean finished;
     boolean tiebreak;
